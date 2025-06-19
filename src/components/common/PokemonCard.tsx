@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { usePokemon } from '../hooks/usePokemon';
-import { getTypeColor } from '../utils/colors';
+import { usePokemon } from '../../hooks/usePokemon';
+import { getTypeColor } from '../../utils/colors';
 import { Ruler, Weight } from 'lucide-react';
 import FavoriteButton from './FavoriteButton';
 
@@ -42,8 +42,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         className={`rounded-xl shadow-sm border border-${backgroundColor}-100 dark:border-gray-700 hover:shadow-md relative`}
       >
         {/* Favorite Button */}
-        <div className="absolute top-3 right-3 z-10">
-          <FavoriteButton pokemonId={pokemon.id} size="sm" />
+        <div className="absolute top-1 right-1 z-10">
+          <FavoriteButton
+            pokemonId={pokemon.id}
+            pokemonName={pokemon.name}
+            size="md"
+          />
         </div>
 
         <div
@@ -53,7 +57,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           }}
         >
           <div className="absolute top-2 right-0 z-[-1]">
-            <span className="text-[6rem] font-medium text-gray-300 dark:text-gray-700 opacity-30">
+            <span className="lg:text-[4.5rem] xl:text-[6rem] text-[4rem] font-medium text-gray-300 dark:text-gray-700 opacity-50">
               #{pokemon.id.toString().padStart(4, '0')}
             </span>
           </div>
@@ -73,9 +77,14 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         </div>
 
         <div className="p-4 mt-3">
-          <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-200 capitalize mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            {pokemon.name}
-          </h3>
+          <div className="flex justify-between items-center">
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-200 capitalize mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              {pokemon.name}
+            </h3>
+            <span className="text-sm font-medium text-gray-500 dark:text-gray-500 opacity-70">
+              #{pokemon.id.toString().padStart(4, '0')}
+            </span>
+          </div>
 
           <div className="flex flex-wrap gap-1">
             {pokemon.types.map(({ type }) => (

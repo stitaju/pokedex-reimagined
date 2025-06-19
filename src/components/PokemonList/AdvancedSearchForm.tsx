@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
-import { Search, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
-import { pokemonTypes, pokemonHabitats, pokemonClassifications } from '../services/searchService';
-import type { SearchRequest } from '../services/searchService';
+import {
+  Search,
+  Filter,
+  X,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
+import {
+  pokemonTypes,
+  pokemonHabitats,
+  pokemonClassifications,
+} from '../../services/searchService';
+import type { SearchRequest } from '../../services/searchService';
 
 interface AdvancedSearchFormProps {
   onSearch: (searchParams: SearchRequest) => void;
@@ -17,48 +27,55 @@ interface FormData {
   classification: { value: string; label: string } | null;
 }
 
-const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ 
-  onSearch, 
-  isLoading = false 
-}) => {
+const AdvancedSearchForm: React.FC<
+  AdvancedSearchFormProps
+> = ({ onSearch, isLoading = false }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
-  
-  const { control, handleSubmit, reset, watch } = useForm<FormData>({
-    defaultValues: {
-      searchText: '',
-      types: [],
-      habitat: [],
-      classification: null,
-    },
-  });
+
+  const { control, handleSubmit, reset, watch } =
+    useForm<FormData>({
+      defaultValues: {
+        searchText: '',
+        types: [],
+        habitat: [],
+        classification: null,
+      },
+    });
 
   const watchedValues = watch();
-  const hasFilters = watchedValues.types.length > 0 || 
-                    watchedValues.habitat.length > 0 || 
-                    watchedValues.classification !== null;
+  const hasFilters =
+    watchedValues.types.length > 0 ||
+    watchedValues.habitat.length > 0 ||
+    watchedValues.classification !== null;
 
-  const typeOptions = pokemonTypes.map(type => ({
+  const typeOptions = pokemonTypes.map((type) => ({
     value: type,
-    label: type.charAt(0).toUpperCase() + type.slice(1)
+    label: type.charAt(0).toUpperCase() + type.slice(1),
   }));
 
-  const habitatOptions = pokemonHabitats.map(habitat => ({
+  const habitatOptions = pokemonHabitats.map((habitat) => ({
     value: habitat,
-    label: habitat.split('-').map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ')
+    label: habitat
+      .split('-')
+      .map(
+        (word) =>
+          word.charAt(0).toUpperCase() + word.slice(1)
+      )
+      .join(' '),
   }));
 
-  const classificationOptions = pokemonClassifications.map(classification => ({
-    value: classification,
-    label: classification
-  }));
+  const classificationOptions = pokemonClassifications.map(
+    (classification) => ({
+      value: classification,
+      label: classification,
+    })
+  );
 
   const onSubmit = (data: FormData) => {
     const searchParams: SearchRequest = {
       searchText: data.searchText.trim(),
-      types: data.types.map(type => type.value),
-      habitat: data.habitat.map(hab => hab.value),
+      types: data.types.map((type) => type.value),
+      habitat: data.habitat.map((hab) => hab.value),
       classification: data.classification?.value || '',
     };
     onSearch(searchParams);
@@ -78,7 +95,9 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({
     control: (provided: any, state: any) => ({
       ...provided,
       borderColor: state.isFocused ? '#3b82f6' : '#d1d5db',
-      boxShadow: state.isFocused ? '0 0 0 2px rgba(59, 130, 246, 0.2)' : 'none',
+      boxShadow: state.isFocused
+        ? '0 0 0 2px rgba(59, 130, 246, 0.2)'
+        : 'none',
       '&:hover': {
         borderColor: '#9ca3af',
       },
@@ -104,8 +123,11 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border dark:border-gray-700 border-gray-200 p-6 mb-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <div className="bg-white dark:bg-gray-800">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6"
+      >
         {/* Search Text Input */}
         <div className="flex items-center space-x-4">
           <div className="flex-1 relative">
@@ -117,17 +139,17 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({
                 <input
                   {...field}
                   type="text"
-                  placeholder="Search Pokémon by name..."
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg"
+                  placeholder="Search Pokémon"
+                  className="w-full pl-10 pr-4 py-1 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg"
                 />
               )}
             />
           </div>
-          
+
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 py-3 rounded-xl font-medium transition-colors shadow-md hover:shadow-lg flex items-center space-x-2"
+            className="bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 py-2 rounded-xl font-medium transition-colors shadow-md hover:shadow-lg flex items-center space-x-2"
           >
             {isLoading ? (
               <>
@@ -145,14 +167,18 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({
           <button
             type="button"
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className={`p-3 rounded-xl border-2 transition-colors flex items-center space-x-2 ${
+            className={`p-2 rounded-xl border-2 transition-colors flex items-center space-x-2 ${
               showAdvanced || hasFilters
                 ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 text-gray-500 dark:hover:border-gray-500'
             }`}
           >
             <Filter className="w-5 h-5" />
-            {showAdvanced ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            {showAdvanced ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
           </button>
 
           {hasFilters && (
@@ -169,11 +195,11 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({
 
         {/* Advanced Filters */}
         {showAdvanced && (
-          <div className="border-t dark:border-gray-600 pt-6 space-y-4">
+          <div className="absolute right-0 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-6 space-y-4 rounded min-w-[42rem]">
             <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-4">
               Advanced Filters
             </h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Types Filter */}
               <div>
@@ -288,7 +314,8 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({
                   ))}
                   {watchedValues.classification && (
                     <span className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded-full text-xs font-medium">
-                      Class: {watchedValues.classification.label}
+                      Class:{' '}
+                      {watchedValues.classification.label}
                     </span>
                   )}
                 </div>

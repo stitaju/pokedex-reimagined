@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { usePokemon } from '../hooks/usePokemon';
-import { getPokemonIdFromUrl } from '../services/utils';
-import { getTypeColor } from '../utils/colors';
+import { usePokemon } from '../../hooks/usePokemon';
+import { getPokemonIdFromUrl } from '../../utils/utils';
+import { getTypeColor } from '../../utils/colors';
 import { ArrowRight } from 'lucide-react';
 import type {
   EvolutionChain,
   EvolutionLink,
-} from '../types/pokemon';
+} from '../../types/pokemon';
 
 interface EvolutionChainProps {
   evolutionChain: EvolutionChain;
@@ -67,10 +67,10 @@ const EvolutionNode: React.FC<EvolutionNodeProps> = ({
               className="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-200"
             />
           </div>
-          <div className="text-xs font-medium text-gray-900 dark:text-gray-100 capitalize truncate">
+          <div className="text-md font-medium text-gray-900 dark:text-gray-100 capitalize truncate">
             {pokemon.name}
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-300">
+          <div className="text-md text-gray-500 dark:text-gray-300">
             Lv.{' '}
             {evolution.evolution_details[0]?.min_level ||
               '?'}

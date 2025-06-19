@@ -2,16 +2,12 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom';
-import Layout from './components/Layout';
-import PokemonList from './pages/PokemonList';
-import PokemonDetail from './pages/PokemonDetail';
-import SearchPage from './pages/SearchPage';
-import FavoritesPage from './pages/FavoritesPage';
+
+import { Auth0Provider } from '@auth0/auth0-react';
+import AppRoutes from './routes/routes';
+
+const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,25 +22,15 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<PokemonList />} />
-            <Route
-              path="/search"
-              element={<SearchPage />}
-            />
-            <Route
-              path="/favourites"
-              element={<FavoritesPage />}
-            />
-            <Route
-              path="/pokemon/:id"
-              element={<PokemonDetail />}
-            />
-          </Routes>
-        </Layout>
-      </Router>
+      <Auth0Provider
+        domain={domain}
+        clientId={clientId}
+        authorizationParams={{
+          redirect_uri: window.location.origin,
+        }}
+      >
+        <AppRoutes />
+      </Auth0Provider>
     </QueryClientProvider>
   );
 }

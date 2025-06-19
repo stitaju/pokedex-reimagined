@@ -1,10 +1,14 @@
 import React from 'react';
 import { useFavorites } from '../hooks/useFavorites';
-import PokemonCard from '../components/PokemonCard';
+import PokemonCard from '../components/common/PokemonCard';
 import { Heart, Loader2 } from 'lucide-react';
 
 const FavoritesPage: React.FC = () => {
-  const { data: favorites = [], isLoading, error } = useFavorites();
+  const {
+    data: favorites = [],
+    isLoading,
+    error,
+  } = useFavorites();
 
   if (isLoading) {
     return (
@@ -17,7 +21,7 @@ const FavoritesPage: React.FC = () => {
             </h1>
           </div>
         </div>
-        
+
         <div className="flex items-center justify-center py-20">
           <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
           <span className="ml-2 text-gray-600 dark:text-gray-300">
@@ -39,7 +43,7 @@ const FavoritesPage: React.FC = () => {
             </h1>
           </div>
         </div>
-        
+
         <div className="text-center py-20">
           <div className="text-red-500 text-xl mb-2">
             Failed to load favorites
@@ -77,7 +81,8 @@ const FavoritesPage: React.FC = () => {
             No Favorite Pokémon Yet
           </h3>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
-            Start exploring and add Pokémon to your favorites by clicking the heart icon.
+            Start exploring and add Pokémon to your
+            favorites by clicking the heart icon.
           </p>
         </div>
       ) : (
