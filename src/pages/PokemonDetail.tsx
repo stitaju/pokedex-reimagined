@@ -8,6 +8,7 @@ import { useEvolutionChain } from '../hooks/useEvolutionChain';
 import { getTypeColor } from '../utils/colors';
 import { getEvolutionChainIdFromUrl } from '../services/utils';
 import EvolutionChain from '../components/EvolutionChain';
+import FavoriteButton from '../components/FavoriteButton';
 import {
   ArrowLeft,
   Ruler,
@@ -122,9 +123,7 @@ const PokemonDetail: React.FC = () => {
             </div>
 
             <div className="flex items-center space-x-3">
-              <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-colors">
-                <Heart className="w-5 h-5 text-gray-600 dark:text-gray-200" />
-              </button>
+              <FavoriteButton pokemonId={pokemon.id} size="lg" />
               <button className="px-4 py-2 border border-blue-600 dark:border-blue-300 text-white rounded-lg hover:bg-gray-900 transition-colors">
                 Compare
               </button>
@@ -198,32 +197,6 @@ const PokemonDetail: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                {/* <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 border-gray-200 rounded-2xl shadow-sm p-8 text-center">
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <Ruler className="w-4 h-4 text-gray-400 mr-1" />
-                      </div>
-                      <div className="text-2xl font-bold text-gray-900 dark:text-gray-200">
-                        {(pokemon.height / 10).toFixed(1)}m
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        Height
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <Weight className="w-4 h-4 text-gray-400 mr-1" />
-                      </div>
-                      <div className="text-2xl font-bold text-gray-900 dark:text-gray-200">
-                        {(pokemon.weight / 10).toFixed(1)}kg
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        Weight
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
 

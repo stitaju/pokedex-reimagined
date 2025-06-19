@@ -11,6 +11,7 @@ import Layout from './components/Layout';
 import PokemonList from './pages/PokemonList';
 import PokemonDetail from './pages/PokemonDetail';
 import SearchPage from './pages/SearchPage';
+import FavoritesPage from './pages/FavoritesPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,10 @@ function App() {
             <Route
               path="/search"
               element={<SearchPage />}
+            />
+            <Route
+              path="/favourites"
+              element={<FavoritesPage />}
             />
             <Route
               path="/pokemon/:id"

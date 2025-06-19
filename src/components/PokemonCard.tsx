@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { usePokemon } from '../hooks/usePokemon';
 import { getTypeColor } from '../utils/colors';
 import { Ruler, Weight } from 'lucide-react';
+import FavoriteButton from './FavoriteButton';
 
 interface PokemonCardProps {
   name: string;
@@ -17,7 +18,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
 
   if (error || !pokemon) {
     return (
-      <div className="bg-white dark:bg-gray-700 rounded-xl p-4 shadow-sm border border-gray-100 dark-border-gray-700 text-center">
+      <div className="bg-white dark:bg-gray-700 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
         <div className="text-gray-500 mb-2 text-sm">
           Loading...
         </div>
@@ -38,8 +39,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       className="group block transform transition-all duration-200 hover:scale-[105%]"
     >
       <div
-        className={`rounded-xl shadow-sm border border-${backgroundColor}-100 dark:border-gray-700 hover:shadow-md`}
+        className={`rounded-xl shadow-sm border border-${backgroundColor}-100 dark:border-gray-700 hover:shadow-md relative`}
       >
+        {/* Favorite Button */}
+        <div className="absolute top-3 right-3 z-10">
+          <FavoriteButton pokemonId={pokemon.id} size="sm" />
+        </div>
+
         <div
           className="p-4 relative"
           style={{
